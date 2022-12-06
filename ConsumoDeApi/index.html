@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <title>NodeJs'World'Continents</title>
+</head>
+
+<body>
+
+  <header>
+    <hr>
+    <h1>NodeJs'World'Continents</h1>
+    <hr>
+  </header>
+
+  <section>
+    <div class="continentsList">
+      <h2>Continents'List</h2>
+      <ul id="continents"></ul><br>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="continentsForm">
+      <h4>New continent</h4>
+      <div class="continentsNewForm">
+    
+      <input type="text" name="name" id="name" placeholder="Name"><br><br>
+      <input type="number" name="countriesAmount" id="countriesAmount" placeholder="Countries Amount"><br><br>
+      <input type="text" name="population" id="population" placeholder="Population"><br><br>
+      <button type="button" onclick="createContinent()">Create</button>
+    </div>
+    <h4>Edit Continent</h4>
+
+    <div class="continentsEditForm">
+
+     
+      <input type="text" name="idEdit" id="idEdit" placeholder="ID" readonly><br><br>
+      <input type="text" name="nameEdit" id="nameEdit" placeholder="Name"><br><br>
+      <input type="number" name="countriesAmountEdit" id="countriesAmountEdit" placeholder="Country"><br><br>
+      <input type="text" name="populationEdit" id="populationEdit" id="populationEdit" placeholder="Population"><br><br>
+      <button type="button" onclick="upDateCountry()">Edit</button>
+    </div>
+
+  </div>
+  </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+  function createContinent() {
+    let nameInput = document.getElementById('name');
+    let countriesAmountInput = document.getElementById('countriesAmount');
+    let populationInput = document.getElementById('population');
+
+    let continent = {
+      name: nameInput.value,
+      countriesAmount: countriesAmountInput.value,
+      population: populationInput.value
+    }
+    axios.post("http://localhost:9999/continent", continent).then(response => {
+      if (response.status == 200) {
+        alert("Registered Country!")
+        console.log(continent)
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  function deleteContinent(listItem) {
+    let id = listItem.getAttribute("data-id");
+    axios.delete("http://localhost:9999/continent/" + id).then(response => {
+      alert("DELETE CONTINENT SUCCSSESFULY!");
+    }).catch(error => {
+      console.log(error)
+    });
+    //console.log(id);
+    //console.log(listItem)
+  }
+
+  function editContinent(listItem) {
+
+    let id = listItem.getAttribute("data-id");
+    let name = listItem.getAttribute("data-name");
+    let countriesAmount = listItem.getAttribute("data-countriesAmount");
+    let population = listItem.getAttribute("data-population");
+
+    document.getElementById("idEdit").value = id;
+    document.getElementById("nameEdit").value = name;
+    document.getElementById("countriesAmountEdit").value = countriesAmount;
+    document.getElementById("populationEdit").value = population;
+
+  }
+
+  function upDateCountry() {
+
+    let idInput = document.getElementById('idEdit')
+    let nameInput = document.getElementById('nameEdit');
+    let countriesAmountInput = document.getElementById('countriesAmountEdit');
+    let populationInput = document.getElementById('populationEdit');
+
+    let continent = {
+      name: nameInput.value,
+      countriesAmount: countriesAmountInput.value,
+      population: populationInput.value
+    }
+
+    let id = idInput.value;
+
+    axios.put("http://localhost:9999/continent/" + id, continent).then(response => {
+      if (response.status == 200) {
+        alert("Updated Country Successfuly!")
+        console.log(continent)
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+
+
+
+  }
+
+
+  axios.get(" http://localhost:9999/atlas").then(response => {
+    const continents = response.data;
+    const list = document.getElementById("continents");
+
+    continents.forEach(continent => {
+      let item = document.createElement("li");
+
+      item.setAttribute("data-id", continent.id);
+      item.setAttribute("data-name", continent.name);
+      item.setAttribute("data-countriesAmount", continent.countriesAmount);
+      item.setAttribute("data-population", continent.population);
+
+      item.innerHTML = continent.id + " -  Continent: " +
+        continent.name + " - Countries Amount: " + continent.countriesAmount +
+        " - Population: " + continent.population;
+
+      let deleteBtn = document.createElement("button");
+      deleteBtn.innerHTML = "Delete";
+      deleteBtn.addEventListener("click", function () {
+        deleteContinent(item)
+        //console.log('Deleted')
+        //alert('Erased Continent succssesfuly!')
+      });
+
+      let editBtn = document.createElement("button");
+      editBtn.innerHTML = "Edit";
+      editBtn.addEventListener("click", function () {
+        editContinent(item);
+      })
+
+
+      item.appendChild(deleteBtn);
+      item.appendChild(editBtn);
+
+
+
+      list.appendChild(item);
+    });
+
+  }).catch(error => {
+    console.log(error);
+  });
+
+
+</script>
+
+</html>

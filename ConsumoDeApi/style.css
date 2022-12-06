@@ -1,0 +1,66 @@
+body {
+  background-color: #2a2a;
+  font-family: sans-serif;
+  
+}
+
+header {
+  text-align: center;
+
+}
+
+.continentsList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+ .constinentsForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+ .continentsNewForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  
+}
+ .continentsEditForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  
+
+}
+
+h4 {
+  text-align: center;
+}
+
+ul {
+  font-size: 20px;
+  font-weight: 400px;
+}
+
+button {
+  margin: 5px;
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 15px;
+  font-weight: 200px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(65, 121, 65);
+  color: #ffffff;
+}
