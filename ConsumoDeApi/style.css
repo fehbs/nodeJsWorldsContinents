@@ -1,21 +1,49 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Source Sans Pro";
+}
+
+:root {
+  --colornode1: #233056;
+  --colornode2: #999;
+  --colornode3: #090c15;
+  --colornode4: #84ba64;
+  --colornode5: #43853d;
+  --colornode6: #026e00;
+  --colornode7: #fff;
+}
+
+* {
+  color: var(--colornode7);
+}
+
+ h2, h4  {
+  color: var(--colornode4);
+}
+
 body {
-  background-color: #2a2a;
-  font-family: sans-serif;
-  
+  background-color: var(--colornode3); 
 }
 
 header {
-  text-align: center;
-
+  padding: 2px;
+  background: var(--colornode5);
+  text-align: center; 
 }
 
+h1 {
+  font-size: 2.7rem;
+}
 .continentsList {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
- .constinentsForm {
+ .constinentsForm { 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,8 +55,29 @@ header {
   justify-content: center;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  
+  flex-direction: row; 
+}
+
+* input {
+  height: 6vmin;
+  max-width: 200px;
+  max-width: 100%;
+  width: 200px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  line-height: none;
+  font-size: 1.2rem;
+  color: #233056;
+  text-align: center;
+}
+ 
+* input::placeholder {
+  color: var(--colornode1);
+  font-size: 1rem;
+  text-align: center; 
+  /*max-width: 100%;
+  width: 200px;*/
 }
  .continentsEditForm{
   display: flex;
@@ -36,7 +85,6 @@ header {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  
 
 }
 
@@ -50,10 +98,12 @@ ul {
 }
 
 button {
+  color: var(--colornode7);
+  background: var(--colornode6);
   margin: 5px;
   width: 100px;
-  height: 25px;
-  border-radius: 5px;
+  height: 6vmin;
+  border-radius: 8px;
   border-style: none;
   font-size: 15px;
   font-weight: 200px;

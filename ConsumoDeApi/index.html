@@ -6,52 +6,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&family=Roboto:wght@300&display=swap" rel="stylesheet">
-  <title>NodeJs'World'Continents</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600;display=fallback">
+  <title>NodeJs'World'S Continents</title>
 </head>
 
 <body>
-
+  <hr>
   <header>
-    <hr>
-    <h1>NodeJs'World'Continents</h1>
-    <hr>
+    
+    <h1>NodeJs'World'S Continents</h1>
+    
   </header>
-
+  <hr>
   <section>
-    <div class="continentsList">
-      <h2>Continents'List</h2>
-      <ul id="continents"></ul><br>
 
+    <div class="continentsList">
+      <h2>Continents' List</h2>
+      <ul id="continents"></ul><br>
     </div>
+
   </section>
 
   <section>
 
     <div class="continentsForm">
+
       <h4>New continent</h4>
+
       <div class="continentsNewForm">
-    
-      <input type="text" name="name" id="name" placeholder="Name"><br><br>
-      <input type="number" name="countriesAmount" id="countriesAmount" placeholder="Countries Amount"><br><br>
-      <input type="text" name="population" id="population" placeholder="Population"><br><br>
-      <button type="button" onclick="createContinent()">Create</button>
+        <input type="text" name="name" id="name" placeholder="Name"><br><br>
+        <input type="number" name="countriesAmount" id="countriesAmount" placeholder="Countries Amount"><br><br>
+        <input type="number" name="population" id="population" placeholder="Population"><br><br>
+        <button type="button" onclick="createContinent()">Create</button>
+      </div>
+
+      <h4>Edit Continent</h4>
+
+      <div class="continentsEditForm">
+        <input type="text" name="idEdit" id="idEdit" placeholder="ID" readonly><br><br>
+        <input type="text" name="nameEdit" id="nameEdit" placeholder="Name"><br><br>
+        <input type="number" name="countriesAmountEdit" id="countriesAmountEdit" placeholder="Countries Amount"><br><br>
+        <input type="number" name="populationEdit" id="populationEdit" placeholder="Population"><br><br>
+        <button type="button" onclick="upDateCountry()">Edit</button>
+      </div>
+
     </div>
-    <h4>Edit Continent</h4>
 
-    <div class="continentsEditForm">
-
-     
-      <input type="text" name="idEdit" id="idEdit" placeholder="ID" readonly><br><br>
-      <input type="text" name="nameEdit" id="nameEdit" placeholder="Name"><br><br>
-      <input type="number" name="countriesAmountEdit" id="countriesAmountEdit" placeholder="Country"><br><br>
-      <input type="text" name="populationEdit" id="populationEdit" id="populationEdit" placeholder="Population"><br><br>
-      <button type="button" onclick="upDateCountry()">Edit</button>
-    </div>
-
-  </div>
   </section>
+
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
@@ -66,6 +70,7 @@
       countriesAmount: countriesAmountInput.value,
       population: populationInput.value
     }
+
     axios.post("http://localhost:9999/continent", continent).then(response => {
       if (response.status == 200) {
         alert("Registered Country!")
@@ -77,11 +82,12 @@
   }
 
   function deleteContinent(listItem) {
+
     let id = listItem.getAttribute("data-id");
     axios.delete("http://localhost:9999/continent/" + id).then(response => {
       alert("DELETE CONTINENT SUCCSSESFULY!");
     }).catch(error => {
-      console.log(error)
+      console.log(error);
     });
     //console.log(id);
     //console.log(listItem)
@@ -103,7 +109,7 @@
 
   function upDateCountry() {
 
-    let idInput = document.getElementById('idEdit')
+    let idInput = document.getElementById('idEdit');
     let nameInput = document.getElementById('nameEdit');
     let countriesAmountInput = document.getElementById('countriesAmountEdit');
     let populationInput = document.getElementById('populationEdit');
@@ -119,18 +125,15 @@
     axios.put("http://localhost:9999/continent/" + id, continent).then(response => {
       if (response.status == 200) {
         alert("Updated Country Successfuly!")
-        console.log(continent)
+        console.log(continent);
       }
     }).catch(error => {
       console.log(error);
     });
-
-
-
   }
 
-
   axios.get(" http://localhost:9999/atlas").then(response => {
+
     const continents = response.data;
     const list = document.getElementById("continents");
 
@@ -149,7 +152,7 @@
       let deleteBtn = document.createElement("button");
       deleteBtn.innerHTML = "Delete";
       deleteBtn.addEventListener("click", function () {
-        deleteContinent(item)
+        deleteContinent(item);
         //console.log('Deleted')
         //alert('Erased Continent succssesfuly!')
       });
@@ -160,11 +163,8 @@
         editContinent(item);
       })
 
-
       item.appendChild(deleteBtn);
       item.appendChild(editBtn);
-
-
 
       list.appendChild(item);
     });

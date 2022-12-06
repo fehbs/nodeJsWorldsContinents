@@ -145,8 +145,12 @@ app.put("/continent/:id", (req, res) => {
         continent.countriesAmount = countriesAmount;
       }
 
-      res.sendStatus(200);
+      if (population != undefined) {
+        continent.population = population;
+      }
 
+      res.sendStatus(200);
+      console.log("Successfully updated!");
     } else {
       res.sendStatus(404);
     }
